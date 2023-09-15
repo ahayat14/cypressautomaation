@@ -17,6 +17,24 @@ describe('Handle Tables', function(){
         cy.get("table[class='table table-bordered table-hover']>tbody>tr").should('have.length','10')
         cy.get("table[class='table table-bordered table-hover']>thead>tr>td").should('have.length','7')
 
+    })
+
+    it('check cell data from specific row & column',()=>{
+        cy.get("table[class='table table-bordered table-hover']>tbody>tr:nth-child(5)>td:nth-child(3)")
+        .contains("hfgjhgjgjggj@gmail.com")
+
+    })
+
+    it('Read all data from first page', ()=>{
+        cy.get("table[class='table table-bordered table-hover']>tbody>tr")
+            .each(($row, index, $rows)=>{
+                cy.wrap($row).within( ()=>{
+                    cy.get("td").each( ($col, index, $cols)=>{
+                        cy.log($col.text());
+                    })
+                })
+            })
+
 
     })
 })
